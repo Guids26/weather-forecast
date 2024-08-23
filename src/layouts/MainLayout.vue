@@ -62,7 +62,7 @@ watch(temperatureUnit, (val) => {
         <q-page class="column q-pa-sm">
           <SearchLocation style="max-width: 100%;"></SearchLocation>
           <div class="row q-pa-sm justify-evenly items-center" style="width: 100%">
-            <div class=" col-xs-12 col-md-6 col-lg-4 items-center self-stretch q-mb-xs"
+            <div class="col-xs-12 col-md-6 col-lg-4 items-center self-stretch q-mb-xs"
               v-for=" location in locationStore.locationsSelectedList" :key="location.latLong">
               <LocationWeather :location="location">
               </LocationWeather>

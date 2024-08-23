@@ -1,23 +1,34 @@
 <template>
     <q-card class="my-card q-pa-xs text-grey-9 q-mr-sm q-mb-sm">
-        <q-card-actions class="row q-pa-xs">
-            <div class="col-10 active-scroll justify-start">
+
+        <q-inner-loading :showing="weatherApi.loading.value" />
+        <q-card-actions v-if="weatherApi.loading.value == false" class="row q-pa-xs">
+            <div class="col-xs-8 col-md-9 col-lg-10  active-scroll justify-end">
                 <div class="text-h6 text-weight-bold">{{ location.name }}</div>
             </div>
-            <div class="col-2">
+            <div class="col-xs-4 col-md-3 col-lg-2">
                 <q-btn flat icon="close" color="red" @click="handleClose" />
-                <q-btn flat icon="favorite" :color="favorited == true ? 'red' : 'white'" @click="handleFavorite" />
+                <q-btn flat icon="favorite" :color="favorited == true ? 'red' : 'red-2'" @click="handleFavorite" />
             </div>
         </q-card-actions>
 
-        <q-card-section class="q-pa-xs">
-            <q-inner-loading :showing="weatherApi.loading" />
-            <div class="text-h4 text-weight-bold">{{ Math.round(weatherInfos.temperature) }} º{{
-                temperatureUnitChar
-            }}
-                <q-icon :name="weatherIcon" />
-                {{ weatherDescription }}
+        <q-card-section v-if="weatherApi.loading.value == false" class="q-pa-xs">
+            <div class="row items-center q-mb-md q-mt-md">
+                <div class="col-6 justify-center">
+                    <q-icon size="100px" :name="weatherIcon" />
+                </div>
+                <div class="col-6 justify-center">
+                    <div class="text-h4 text-weight-bold">{{ Math.round(weatherInfos.temperature) }} º{{
+                        temperatureUnitChar
+                        }}
+                    </div>
+                    <div class="text-h6 text-weight-bold">
+
+                        {{ weatherDescription }}
+                    </div>
+                </div>
             </div>
+
             <div class="row">
                 <div class="col">
                     <div class="text-subtitle1 text-weight-bold"><q-icon color="orange" name="south" /> {{
@@ -149,11 +160,10 @@ const convertTemperature = (temp, unit) => {
 onMounted(async () => {
     weatherApi.loading.value = true;
     weatherInfos.value = await weatherApi.searchWeatherForecast(latitude, longitude);
-    weatherApi.loading.value = true;
+    weatherApi.loading.value = false;
 });
 
 const getDayOfWeek = (dateString) => {
-    console.log(dateString)
     const date = new Date(dateString);
 
     date.setDate(date.getDate() + 1);//para resolver o problema de mostrar o nome do dia -1

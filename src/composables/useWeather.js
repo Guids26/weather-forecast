@@ -60,7 +60,6 @@ export function useWeather() {
           date: response.data.daily.time[index],
         })
       );
-      console.log(data);
     } catch (err) {
       error.value = err;
     } finally {
@@ -136,69 +135,38 @@ export function useWeather() {
   };
 
   const getWeatherDescription = (code) => {
-    let description;
+    const descriptions = {
+      0: t("clearSky"),
+      1: t("mainlyClear"),
+      2: t("partlyCloudy"),
+      3: t("overcast"),
+      45: t("fog"),
+      48: t("depositingRimeFog"),
+      51: t("drizzleLight"),
+      53: t("drizzleModerate"),
+      55: t("drizzleDenseIntensity"),
+      56: t("freezingDrizzleLight"),
+      57: t("freezingDrizzleDenseIntensity"),
+      61: t("rainSlight"),
+      63: t("rainModerate"),
+      65: t("rainHeavyIntensity"),
+      66: t("freezingRainLight"),
+      67: t("freezingRainHeavyIntensity"),
+      71: t("snowFallSlight"),
+      73: t("snowFallModerate"),
+      75: t("snowFallHeavyIntensity"),
+      77: t("snowGrains"),
+      80: t("rainShowersSlight"),
+      81: t("rainShowersModerate"),
+      82: t("rainShowersViolent"),
+      85: t("snowShowersSlight"),
+      86: t("snowShowersHeavy"),
+      95: t("thunderstormSlightOrModerate"),
+      96: t("thunderstormWithSlightHail"),
+      99: t("thunderstormWithHeavyHail"),
+    };
 
-    switch (code) {
-      case 0:
-        description = t("clearSky");
-        break;
-      case 1:
-      case 2:
-      case 3:
-        description = t("mainlyClearPartlyCloudyOrOvercast");
-        break;
-      case 45:
-      case 48:
-        description = t("fogOrDepositingRimeFog");
-        break;
-      case 51:
-      case 53:
-      case 55:
-        description = t("drizzleLightModerateOrDenseIntensity");
-        break;
-      case 56:
-      case 57:
-        description = t("freezingDrizzleLightOrDenseIntensity");
-        break;
-      case 61:
-      case 63:
-      case 65:
-        description = t("rainSlightModerateOrHeavyIntensity");
-        break;
-      case 66:
-      case 67:
-        description = t("freezingRainLightOrHeavyIntensity");
-        break;
-      case 71:
-      case 73:
-      case 75:
-        description = t("snowfallSlightModerateOrHeavyIntensity");
-        break;
-      case 77:
-        description = t("snowGrains");
-        break;
-      case 80:
-      case 81:
-      case 82:
-        description = t("rainShowersSlightModerateOrViolent");
-        break;
-      case 85:
-      case 86:
-        description = t("snowShowersSlightOrHeavy");
-        break;
-      case 95:
-        description = t("thunderstormSlightOrModerate");
-        break;
-      case 96:
-      case 99:
-        description = t("thunderstormWithSlightOrHeavyHail");
-        break;
-      default:
-        description = t("unknownWeatherCondition");
-        break;
-    }
-
-    return description;
+    return descriptions[code] || t("unknownWeatherCode");
   };
 
   return {
