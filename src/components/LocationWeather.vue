@@ -119,7 +119,6 @@ watch(temperatureUnit, () => {
     weatherInfos.value.maxTemperature = convertTemperature(weatherInfos.value.maxTemperature, temperatureUnit.value);
     weatherInfos.value.temperature = convertTemperature(weatherInfos.value.temperature, temperatureUnit.value);
     weatherInfos.value.aparentTemperature = convertTemperature(weatherInfos.value.aparentTemperature, temperatureUnit.value);
-    weatherInfos.value.aparentTemperature = convertTemperature(weatherInfos.value.aparentTemperature, temperatureUnit.value);
     weatherInfos.value.forecastInNextDays.forEach((forecast) => {
         forecast.maxTemperature = convertTemperature(forecast.maxTemperature, temperatureUnit.value);
         forecast.minTemperature = convertTemperature(forecast.minTemperature, temperatureUnit.value);
